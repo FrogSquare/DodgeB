@@ -42,7 +42,12 @@ func on_obj_hits(hit_node, self_obj):
 		if hit_node == Utils.get_main_node().get_node("MainLayer/Platform"):
 			self_obj.collision_layer = global.PLATFORM_COLLISION_LAYER
 		else:
-			print("Hit Player")
+			for child in get_children():
+				if child is RigidBody:
+					if child.get_colliding_bodies().size() == 0:
+						child.queue_free()
+			
+			HUD._game_over()
 		
 		var t = self_obj.get_node("Timer")
 		if not t.is_connected("timeout", self_obj, "queue_free"):

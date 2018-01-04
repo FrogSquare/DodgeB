@@ -12,7 +12,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if get_colliding_bodies().size() > 0:
+	if global.gamestarted and get_colliding_bodies().size() > 0:
 		var vel = 0
 		if Input.is_key_pressed(KEY_RIGHT):
 			vel = PLAYER_WALK

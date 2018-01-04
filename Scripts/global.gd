@@ -9,3 +9,5 @@ const OBJECT_COLLISION_LAYER = 4
 const PLATFORM_COLLISION_LAYER = 8
 
 var score = 0
+
+var gamestarted = false
