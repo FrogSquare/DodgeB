@@ -11,43 +11,54 @@ var past_pos = []
 func _ready():
 	randomize()
 	past_pos = []
+	
+	set_process(false)
 	pass
 
 func _start_spawn():
-	tween.stop_all()
-	tween.set_repeat(true)
-	
-	var delay = global.SPAWN_DELAY
-	for i in range(1, 5):
-		tween.interpolate_callback(self, delay, "spawn_obstacle")
-		delay += global.SPAWN_DELAY
-	
-	tween.interpolate_callback(self, tween.get_runtime(), "reset")
-	tween.start()
+	if tween.get_runtime() == 0:
+		tween.stop_all()
+		tween.set_repeat(true)
+		
+		var delay = global.SPAWN_DELAY
+		for i in range(1, 5):
+			tween.interpolate_callback(self, delay, "spawn_obstacle")
+			delay += global.SPAWN_DELAY
+		
+		tween.interpolate_callback(self, tween.get_runtime(), "reset")
+		tween.start()
+	else: tween.resume_all()
 	pass
 
 func _stop_spawn():
+	tween.reset_all()
 	tween.stop_all()
+	set_process(false)
 	pass
 
 func reset():
-	past_pos.clear()
-	past_pos = []
-	
-	HUD._score()
+	if global.gamestarted:
+		past_pos.clear()
+		past_pos = []
+		
+		set_process(true)
+		
+		tween.resume_all()
+		HUD._score()
 	pass
 
-func on_obj_hits(hit_node, self_obj):
+func on_obj_hits(hit_body, self_obj):
 	if self_obj != null:
-		if hit_node == Utils.get_main_node().get_node("MainLayer/Platform"):
-			self_obj.collision_layer = global.PLATFORM_COLLISION_LAYER
-		else:
+		if hit_body == Utils.get_main_node().get_node("MainLayer/Player"):
+			global.gamestarted = false
 			for child in get_children():
 				if child is RigidBody:
 					if child.get_colliding_bodies().size() == 0:
 						child.queue_free()
 			
-			HUD._game_over()
+			Utils.get_main_node()._game_over()
+		else:
+			self_obj.collision_layer = global.PLATFORM_COLLISION_LAYER
 		
 		var t = self_obj.get_node("Timer")
 		if not t.is_connected("timeout", self_obj, "queue_free"):
@@ -84,4 +95,11 @@ func spawn_obstacle():
 		obj.translation.x = randX
 		obj.connect("body_entered", self, "on_obj_hits", [obj])
 	pass
+
+func _process(delta):
+	if get_child_count() <= 1:
+		tween.resume_all()
+		set_process(false)
+	pass
 	
+
