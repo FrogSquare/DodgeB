@@ -180,7 +180,6 @@ _sections_unfolded = [ "Metallic" ]
 
 [node name="ParentNodeAll" type="Node" index="0"]
 
-editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="0"]
@@ -212,6 +211,8 @@ directional_shadow_max_distance = 200.0
 _sections_unfolded = [ "Transform" ]
 
 [node name="MainLayer" type="Spatial" parent="." index="1"]
+
+editor/display_folded = true
 
 [node name="Platform" type="StaticBody" parent="MainLayer" index="0"]
 

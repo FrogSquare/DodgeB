@@ -86,7 +86,7 @@ mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.890196, 0.709804, 0.227451, 1 )
+custom_colors/font_color = Color( 1, 0.890625, 0, 1 )
 custom_colors/font_color_shadow = Color( 0.128906, 0.128906, 0.128906, 1 )
 text = "Dodge B"
 align = 1
@@ -98,6 +98,7 @@ _sections_unfolded = [ "Visibility", "custom_colors" ]
 
 [node name="TapStart" type="Node2D" parent="MainMenu" index="1"]
 
+editor/display_folded = true
 position = Vector2( 300, 512 )
 _sections_unfolded = [ "Transform" ]
 
@@ -238,6 +239,7 @@ autoplay = ""
 [node name="GamePause" type="Node2D" parent="." index="4"]
 
 editor/display_folded = true
+visible = false
 
 [node name="Title" type="Label" parent="GamePause" index="0"]
 
@@ -254,7 +256,7 @@ mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = ExtResource( 3 )
-custom_colors/font_color = Color( 0.890196, 0.709804, 0.227451, 1 )
+custom_colors/font_color = Color( 1, 0.890625, 0, 1 )
 custom_colors/font_color_shadow = Color( 0.128906, 0.128906, 0.128906, 1 )
 text = "Game Paused"
 align = 1
